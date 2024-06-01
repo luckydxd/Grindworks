@@ -1,4 +1,8 @@
+import 'dart:convert';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:grindworks/api/my_api.dart';
+import 'package:grindworks/models/get_article_info.dart';
+import 'package:grindworks/auth/auth_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -9,8 +13,16 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  var articles = <ArticleInfo>[];
   final int _totalDots = 3;
   int _currentPosition = 0;
+
+    @override
+  void initState() {
+    _initData();
+
+    super.initState();
+  }
 
   int _validPosition(int position) {
     if (position >= _totalDots) return 0;
@@ -32,6 +44,30 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   }
 
+    String getCurrentPositionPretty() {
+    return (_currentPosition + 1.0).toStringAsPrecision(2);
+  }
+
+  _initData() async {
+     CallApi().getPublicData("welcomeinfo").then((response){
+       setState(() {
+        Iterable list = json.decode(response.body);
+        articles= list.map((model)=>ArticleInfo.fromJson(model)).toList();
+       });
+     });
+
+  }
+
+  _onPageChanged(int index){
+    setState(() {
+      _currentPosition = _currentPosition.ceil();
+     // _updatePosition(max(--_currentPosition, 0));
+      _updatePosition(index);
+      print(index);
+      print(_currentPosition);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,10 +75,11 @@ class _WelcomePageState extends State<WelcomePage> {
       body: Column(
         children: [
           Container(
+
             height: MediaQuery.of(context).size.height / 2,
             decoration: BoxDecoration(
                 image: DecorationImage(
-              image: AssetImage("img/background.png"),
+              image: AssetImage("assets/background.png"),
               fit: BoxFit.fill,
             )),
           ),
@@ -50,6 +87,7 @@ class _WelcomePageState extends State<WelcomePage> {
             DotsIndicator(
               dotsCount: _totalDots,
               position: _currentPosition,
+              axis: Axis.horizontal,
               decorator: DotsDecorator(
                 size: const Size.square(9.0),
                 activeSize: const Size(18.0, 9.0),
@@ -61,6 +99,30 @@ class _WelcomePageState extends State<WelcomePage> {
               },
             )
           ]),
+Container(
+        height: 180,
+        color:Color(0xFF333d94),
+        child: PageView.builder(
+          onPageChanged: _onPageChanged,
+        controller: PageController(viewportFraction: 1.0),
+    itemCount: articles==null?0:articles.length,
+    itemBuilder: (_, i){
+
+ return Container(
+      height: 180,
+      padding: const EdgeInsets.only(top:50, left: 50, right: 50),
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(right: 10),
+      child: Text(
+        articles[i].article_content==null?"Nothing ":articles[i].article_content,
+        style: TextStyle(color:Colors.white,fontSize: 20, fontFamily: "Avenir",fontWeight: FontWeight.bold),
+
+      ),
+    );
+    }),
+
+    ),
+
           Expanded(
               child: Stack(
             children: [
@@ -71,8 +133,11 @@ class _WelcomePageState extends State<WelcomePage> {
                   right: (MediaQuery.of(context).size.width - 200) / 2,
                   child: GestureDetector(
                       onTap: () {
-                        // Navigator to AuthPage
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>AuthPage())// Navigator to AuthPage
+                        );
                       },
+
                       child: Container(
                           height: 80,
                           decoration: BoxDecoration(
@@ -87,11 +152,16 @@ class _WelcomePageState extends State<WelcomePage> {
                                 style: TextStyle(color: Colors.white, fontSize: 26),
                               ),
                             ],
-                          ))))
+                        )
+                    ))
+                )
             ],
-          ))
+          )
+          )
         ],
       ),
+
+
     );
   }
 }

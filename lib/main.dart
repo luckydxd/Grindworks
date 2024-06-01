@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Grindworks/welcome/welcome_page.dart';
+import 'package:grindworks/welcome/welcome_page.dart';
 
 void main() {
   runApp(MyApp());
