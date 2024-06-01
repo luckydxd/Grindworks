@@ -1,11 +1,11 @@
 class ArticleInfo{
-  int id;
-  String article_content;
-  String title;
-  String description;
-  String created_at;
-  String img;
-  String author;
+  int? id;
+  String? article_content;
+  String? title;
+  String? description;
+  String? created_at;
+  String? img;
+  String? author;
 
   ArticleInfo(String img,int id, String article_content, String title, String description, String created_at, String author){
     this.id=id;
@@ -25,7 +25,7 @@ class ArticleInfo{
           title=json['title'],
           created_at=json['created_at'],
           img=json['img'];
-          
+
   Map toJson(){
     return {
       'id':id,

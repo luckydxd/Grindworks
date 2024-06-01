@@ -32,13 +32,15 @@ class _MyHomePageState extends State<MyHomePage> {
 @override
 
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: BottomNavBar(),
     );
   }
 }
 
 class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
+
 
   @override
   _BottomNavBarState createState() => _BottomNavBarState();

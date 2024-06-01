@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({super.key});
 
   @override
   _SignInState createState() => _SignInState();
@@ -26,7 +26,7 @@ class _SignInState extends State<SignIn> {
   }
   _showMsg(msg) { //
     final snackBar = SnackBar(
-      backgroundColor: Color(0xFF363f93),
+      backgroundColor: const Color(0xFF363f93),
       content: Text(msg),
       action: SnackBarAction(
         label: 'Close',
@@ -53,8 +53,8 @@ class _SignInState extends State<SignIn> {
       localStorage.setString('user', json.encode(body['user']));
       Navigator.push(
           context,
-          new MaterialPageRoute(
-              builder: (context) => ArticlePage()));
+          MaterialPageRoute(
+              builder: (context) => const ArticlePage()));
     }else{
       _showMsg(body['message']);
     }
@@ -64,7 +64,7 @@ class _SignInState extends State<SignIn> {
     final double height= MediaQuery.of(context).size.height;
     return
       Scaffold(
-        backgroundColor: Color(0xFFffffff),
+        backgroundColor: const Color(0xFFffffff),
 
         body:
         Container(
@@ -80,10 +80,10 @@ class _SignInState extends State<SignIn> {
                 children: [
                   IconButton(
                       padding:EdgeInsets.zero,
-                      constraints: BoxConstraints(),
+                      constraints: const BoxConstraints(),
                       icon:
 
-                      Icon(Icons.arrow_back_ios, color:Color(0xFF363f93)),
+                      const Icon(Icons.arrow_back_ios, color:Color(0xFF363f93)),
                       onPressed:()=>Navigator.of(context, rootNavigator: true).pop(context))
                 ],
               ),
@@ -110,11 +110,11 @@ class _SignInState extends State<SignIn> {
                 Container(
                   height: 80,
                   width: 80,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape:BoxShape.circle,
                         color:Color(0xFF363f93),
                   ),
-                  child: Icon(Icons.arrow_forward, color:Colors.white, size:30),
+                  child: const Icon(Icons.arrow_forward, color:Colors.white, size:30),
                 )
                 )
               ],
@@ -126,7 +126,7 @@ class _SignInState extends State<SignIn> {
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context)=>SignUp())
+                        MaterialPageRoute(builder: (context)=>const SignUp())
                     );
                   },
                   child:TextWidget(text:"Sign up", fontSize:16, isUnderLine:true),
@@ -153,21 +153,21 @@ class TextInput extends StatelessWidget {
   TextEditingController textController;
   final String hint;
   bool obscureText;
-  TextInput({Key? key, this.textString, this.textController, this.hint, this.obscureText=false}) : super(key: key);
+  TextInput({super.key, required this.textString, required this.textController, required this.hint, this.obscureText=false});
 
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(color: Color(0xFF000000)),
-      cursorColor: Color(0xFF9b9b9b),
+      style: const TextStyle(color: Color(0xFF000000)),
+      cursorColor: const Color(0xFF9b9b9b),
       controller: textController,
       keyboardType: TextInputType.text,
       obscureText: obscureText,
       decoration: InputDecoration(
 
-        hintText: this.textString,
-        hintStyle: TextStyle(
+        hintText: textString,
+        hintStyle: const TextStyle(
             color: Color(0xFF9b9b9b),
             fontSize: 15,
             fontWeight: FontWeight.normal),

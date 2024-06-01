@@ -6,7 +6,7 @@ import 'package:grindworks/auth/auth_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+  const WelcomePage({super.key});
 
   @override
   _WelcomePageState createState() => _WelcomePageState();
@@ -71,13 +71,13 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF333d94),
+      backgroundColor: const Color(0xFF333d94),
       body: Column(
         children: [
           Container(
 
             height: MediaQuery.of(context).size.height / 2,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
               image: AssetImage("assets/background.png"),
               fit: BoxFit.fill,
@@ -101,7 +101,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ]),
 Container(
         height: 180,
-        color:Color(0xFF333d94),
+        color:const Color(0xFF333d94),
         child: PageView.builder(
           onPageChanged: _onPageChanged,
         controller: PageController(viewportFraction: 1.0),
@@ -114,8 +114,8 @@ Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.only(right: 10),
       child: Text(
-        articles[i].article_content==null?"Nothing ":articles[i].article_content,
-        style: TextStyle(color:Colors.white,fontSize: 20, fontFamily: "Avenir",fontWeight: FontWeight.bold),
+        articles[i].article_content ?? "Nothing",
+        style: const TextStyle(color:Colors.white,fontSize: 20, fontFamily: "Avenir",fontWeight: FontWeight.bold),
 
       ),
     );
@@ -134,7 +134,7 @@ Container(
                   child: GestureDetector(
                       onTap: () {
                         Navigator.push(context,
-                          MaterialPageRoute(builder: (context)=>AuthPage())// Navigator to AuthPage
+                          MaterialPageRoute(builder: (context)=>const AuthPage())// Navigator to AuthPage
                         );
                       },
 
@@ -142,9 +142,9 @@ Container(
                           height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: Color(0xFF7179ed),
+                            color: const Color(0xFF7179ed),
                           ),
-                          child: Column(
+                          child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(

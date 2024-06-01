@@ -5,9 +5,8 @@ import 'package:grindworks/api/my_api.dart';
 import 'package:grindworks/pages/article_page.dart';
 
 
-
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+  const SignUp({super.key});
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -45,15 +44,15 @@ class _SignUpState extends State<SignUp> {
       //localStorage.setString('user', json.encode(body['user']));
       Navigator.push(
           context,
-          new MaterialPageRoute(
-              builder: (context) => ArticlePage()));
+          MaterialPageRoute(
+              builder: (context) => const ArticlePage()));
     }
   }
   @override
   Widget build(BuildContext context) {
     final double height= MediaQuery.of(context).size.height;
     return
-      Scaffold(
+      const Scaffold(
 
       );
 
@@ -66,19 +65,19 @@ class TextInput extends StatelessWidget {
   final String textString;
   TextEditingController textController;
   final bool obscureText;
-  TextInput({Key? key, this.textString, this.textController, this.obscureText}) : super(key: key);
+  TextInput({super.key, required this.textString, required this.textController, required this.obscureText});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(color: Color(0xFF000000)),
-      cursorColor: Color(0xFF9b9b9b),
+      style: const TextStyle(color: Color(0xFF000000)),
+      cursorColor: const Color(0xFF9b9b9b),
       controller: textController,
       keyboardType: TextInputType.text,
       obscureText: obscureText,
       decoration: InputDecoration(
-        hintText: this.textString,
-        hintStyle: TextStyle(
+        hintText: textString,
+        hintStyle: const TextStyle(
             color: Color(0xFF9b9b9b),
             fontSize: 15,
             fontWeight: FontWeight.normal),

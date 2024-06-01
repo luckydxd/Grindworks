@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 
 class pesanan extends StatefulWidget {
+  const pesanan({super.key});
+
   @override
   _pesananState createState() => _pesananState();
 }
@@ -21,7 +23,7 @@ class _pesananState extends State<pesanan> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 107, 107, 107),
         elevation: 0,
-        title: Text(
+        title: const Text(
           'pesanan',
           style: TextStyle(
             color: Colors.black,
@@ -34,7 +36,7 @@ class _pesananState extends State<pesanan> {
         child: _buildBody(),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
@@ -72,7 +74,7 @@ class _pesananState extends State<pesanan> {
   }
 
   Widget _buildBody() {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(

@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ArticlePage extends StatefulWidget {
-  const ArticlePage({Key? key}) : super(key: key);
+  const ArticlePage({super.key});
 
   @override
   _ArticlePageState createState() => _ArticlePageState();
@@ -60,10 +60,10 @@ class _ArticlePageState extends State<ArticlePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 30,
-        backgroundColor: Color(0xFFffffff),
+        backgroundColor: const Color(0xFFffffff),
         elevation: 0.0,
       ),
-      body: Column(
+      body: const Column(
         children: [
 
         ],

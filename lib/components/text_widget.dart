@@ -5,25 +5,25 @@ class TextWidget extends StatelessWidget {
   int fontSize;
   bool isUnderLine;
   final Color color;
-  TextWidget({Key? key, this.text,this.fontSize, this.isUnderLine=false, this.color=const Color(0xFF363f93)}) : super(key: key);
+  TextWidget({super.key, required this.text,required this.fontSize, this.isUnderLine=false, this.color=const Color(0xFF363f93)});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         bottom: 3, // space between underline and text
       ),
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(
-            color: isUnderLine?Color(0xFF363f93):Color(0xFFffffff),  // Text colour here
+            color: isUnderLine?const Color(0xFF363f93):const Color(0xFFffffff),  // Text colour here
             width: 1.0, // Underline width
           ))
       ),
 
-      child: Text(this.text, style: TextStyle(
-        fontSize:this.fontSize.toDouble(),fontFamily: "Avenir",
+      child: Text(text, style: TextStyle(
+        fontSize:fontSize.toDouble(),fontFamily: "Avenir",
         fontWeight: FontWeight.w900,
-        color:this.color,
+        color:color,
 
       ),),
     );
