@@ -1,5 +1,5 @@
-name: flutter_application_3
-description: A new Flutter project.
+name: grindworks
+description: Platform Aplikasi Pencari Kerja Bidang Digital
 publish_to: 'none'
 version: 0.1.0
 
@@ -10,10 +10,20 @@ dependencies:
   flutter:
     sdk: flutter
 
+
+  dots_indicator: ^3.0.0
+  http: ^1.2.1
+  shared_preferences: ^2.0.8
+  cupertino_icons: ^1.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
+ 
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/background.png
