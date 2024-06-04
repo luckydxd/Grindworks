@@ -1,90 +1,155 @@
 import 'package:flutter/material.dart';
 
+void main() {
 
-class pesanan extends StatefulWidget {
-  const pesanan({super.key});
+  runApp(MyApp());
 
-  @override
-  _pesananState createState() => _pesananState();
 }
 
-class _pesananState extends State<pesanan> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class MyApp extends StatelessWidget {
 
   @override
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 107, 107, 107),
-        elevation: 0,
-        title: const Text(
-          'pesanan',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: false, // Atur menjadi false untuk menempatkan di kiri
+
+    return MaterialApp(
+
+      title: 'Flutter Demo',
+
+      home: Scaffold(
+
+        body: MyHomePage(),
+
       ),
-      body: Center(
-        child: _buildBody(),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Colors.black,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.chat,
-              color: Colors.black,
-            ),
-            label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: Colors.black,
-            ),
-            label: 'Account',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
-      ),
+
     );
+
   }
 
-  Widget _buildBody() {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Belum ada pesanan',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+}
+
+class MyHomePage extends StatelessWidget {
+
+  @override
+
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: Text('Pesanan'),
+
+        backgroundColor: Colors.white,
+
+        elevation: 0,
+
+        centerTitle: false,
+
+        titleTextStyle: TextStyle(color: Colors.black, fontSize: 24),
+
+      ),
+
+      body: Center(
+
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: <Widget>[
+
+            Text(
+
+              'Belum Ada Pesanan',
+
+              style: TextStyle(
+
+                fontSize: 20,
+
+                color: Colors.black,
+
+              ),
+
+            ),
+
+            SizedBox(height: 4),
+
+            Text(
+
+              'Jelajahi Marketplace',
+
+              style: TextStyle(
+
+                fontSize: 16,
+
+                color: Colors.lightBlue,
+
+              ),
+
+            ),
+
+          ],
+
         ),
-      ],
+
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+
+        currentIndex: 2, // Set the default selected item to the third one
+
+        items: [
+
+          BottomNavigationBarItem(
+
+            icon: Icon(Icons.home),
+
+            label: '',
+
+          ),
+
+          BottomNavigationBarItem(
+
+            icon: Icon(Icons.inventory),
+
+            label: '',
+
+          ),
+
+          BottomNavigationBarItem(
+
+            icon: Icon(Icons.search),
+
+            label: '',
+
+          ),
+
+          BottomNavigationBarItem(
+
+            icon: Icon(Icons.article),
+
+            label: '',
+
+          ),
+
+          BottomNavigationBarItem(
+
+            icon: Icon(Icons.person),
+
+            label: '',
+
+          ),
+
+        ],
+
+        selectedIconTheme: IconThemeData(color: Colors.lightBlue),
+
+        unselectedIconTheme: IconThemeData(color: Colors.black),
+
+      ),
+
     );
+
   }
+
 }
