@@ -1,56 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:grindworks/pages/homepage.dart';
+// import 'package:grindworks/pages/homepage.dart';
+import 'package:grindworks/pages/pesanan.dart';
+import 'package:grindworks/pages/inbox.dart';
+// import 'package:grindworks/pages/detail_book.dart';
+// import 'package:grindworks/pages/detail_book.dart';
+// import 'package:grindworks/pages/detail_book.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+// void main() {
+//   runApp(const Bottomnavbar());
+// }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = 0;
-    });
-  }
-@override
-
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: BottomNavBar(),
-    );
-  }
-}
-
+// class Bottomnavbar extends StatelessWidget {
+//   const Bottomnavbar({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       home: WelcomePage(),
+//     );
+//   }
+// }
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+  BottomNavBar({Key? key}) : super(key: key);
 
-
-  @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }
-
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
+
+  // Add your screens here
+  final List<Widget> _screens = [
+
+    //     Center(child: Text('Chat', style: TextStyle(fontSize: 32))),
+    // Center(child: Text('Search', style: TextStyle(fontSize: 32))),
+    // Center(child: Text('Order', style: TextStyle(fontSize: 32))),
+    // Center(child: Text('Profile', style: TextStyle(fontSize: 32))),
+     ArticlePage(),
+    //  ChatPage(),
+    //  SearchPage(),
+     pesanan(),
+    //  ProfilePage(),
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex = index; 
     });
   }
 
@@ -70,14 +64,10 @@ Widget _buildIcon(IconData icon, int index) {
     );
   }
   
-@override
+ @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: Center(
-        child: Text('Selected Index: $_selectedIndex'),
-
-      ),
+      body: _screens[_selectedIndex],
 
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
