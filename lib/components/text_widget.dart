@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
+// ignore: must_be_immutable
 class TextWidget extends StatelessWidget {
   final String text;
   int fontSize;
   bool isUnderLine;
   final Color color;
-  TextWidget({super.key, required this.text,required this.fontSize, this.isUnderLine=false, this.color=const Color(0xFF363f93)});
+  TextWidget({super.key, required this.text,required this.fontSize, this.isUnderLine=false, this.color=const Color(0xFF000000)});
 
   @override
   Widget build(BuildContext context) {

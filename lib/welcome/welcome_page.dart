@@ -6,7 +6,7 @@ import 'package:grindworks/auth/auth_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
-  const WelcomePage({super.key});
+  const WelcomePage({Key? key}) : super(key: key);
 
   @override
   _WelcomePageState createState() => _WelcomePageState();
@@ -14,7 +14,7 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   var articles = <ArticleInfo>[];
-  final int _totalDots = 3;
+  var _totalDots = 1;
   int _currentPosition = 0;
 
     @override
@@ -48,13 +48,15 @@ class _WelcomePageState extends State<WelcomePage> {
     return (_currentPosition + 1.0).toStringAsPrecision(2);
   }
 
-  _initData() async {
+_initData() async {
      CallApi().getPublicData("welcomeinfo").then((response){
        setState(() {
         Iterable list = json.decode(response.body);
         articles= list.map((model)=>ArticleInfo.fromJson(model)).toList();
+        _totalDots=articles.length;
        });
      });
+  
 
   }
 
@@ -105,6 +107,7 @@ Container(
         child: PageView.builder(
           onPageChanged: _onPageChanged,
         controller: PageController(viewportFraction: 1.0),
+    // ignore: unnecessary_null_comparison
     itemCount: articles==null?0:articles.length,
     itemBuilder: (_, i){
 
@@ -148,7 +151,7 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                'Get Started',
+                                'Mulai',
                                 style: TextStyle(color: Colors.white, fontSize: 26),
                               ),
                             ],
@@ -160,8 +163,6 @@ Container(
           )
         ],
       ),
-
-
     );
   }
 }

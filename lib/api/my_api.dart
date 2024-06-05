@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 class CallApi{
-  final String _url = 'http://localhost:8000/api/';
-  final String _imgUrl='http://localhost:8000/uploads/';
+  final String _url = 'http://192.168.109.73/laravel/public/api/';
+  final String _imgUrl='http://192.168.109.73:8000/uploads/';
+  // final String _url = 'http://192.168.11.73/api/';
+  // final String _imgUrl='http://192.168.11.73/uploads/';
   getImage(){
     return _imgUrl;
   }
@@ -54,4 +56,5 @@ class CallApi{
       }
   }
 
+  
 }

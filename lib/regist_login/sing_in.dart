@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:grindworks/api/my_api.dart';
 import 'package:grindworks/components/text_widget.dart';
-import 'package:grindworks/pages/article_page.dart';
+import 'package:grindworks/pages/homepage.dart';
 import 'package:grindworks/regist_login/sing_up.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,7 +21,6 @@ class _SignInState extends State<SignIn> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
   _showMsg(msg) { //
@@ -46,12 +45,12 @@ class _SignInState extends State<SignIn> {
 
     var res = await CallApi().postData(data, 'login');
     var body = json.decode(res.body);
-    print(body);
     if(body['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
      localStorage.setString('token', body['token']);
       localStorage.setString('user', json.encode(body['user']));
       Navigator.push(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
               builder: (context) => const ArticlePage()));
@@ -69,6 +68,7 @@ class _SignInState extends State<SignIn> {
         body:
         Container(
           padding: const EdgeInsets.only(left: 30, right: 40),
+          child: SingleChildScrollView(
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -89,8 +89,20 @@ class _SignInState extends State<SignIn> {
               ),
             ),
             SizedBox(height:height*0.1),
-            TextWidget(text:"Here to Get", fontSize:26, isUnderLine:false),
-            TextWidget(text:"Welcomed !", fontSize:26, isUnderLine:false),
+          Container(
+            // padding: const EdgeInsets.only(left: 20, right: 30),
+            width: 150,
+            height: 50,
+            child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+                Image.asset(
+                    'assets/logo.png'),
+              ],
+            ),
+          ),
+            // TextWidget(text:"Here to Get", fontSize:26, isUnderLine:false),
+            // TextWidget(text:"Welcomed !", fontSize:26, isUnderLine:false),
             SizedBox(height:height*0.1),
             TextInput(textString:"Email", textController:emailController, hint:"Email"),
             SizedBox(height: height*.05,),
@@ -143,11 +155,13 @@ class _SignInState extends State<SignIn> {
           ],
         ),
         )
+        ),
       );
   }
 }
 
 
+// ignore: must_be_immutable
 class TextInput extends StatelessWidget {
   final String textString;
   TextEditingController textController;

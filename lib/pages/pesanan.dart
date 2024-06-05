@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:grindworks/bottomnavbar.dart';
+
+void main() => runApp(pesanan());
 
 
 class pesanan extends StatefulWidget {
@@ -9,14 +12,6 @@ class pesanan extends StatefulWidget {
 }
 
 class _pesananState extends State<pesanan> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +19,7 @@ class _pesananState extends State<pesanan> {
         backgroundColor: const Color.fromARGB(255, 107, 107, 107),
         elevation: 0,
         title: const Text(
-          'pesanan',
+          'Pesanan',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -35,41 +30,8 @@ class _pesananState extends State<pesanan> {
       body: Center(
         child: _buildBody(),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Colors.black,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.chat,
-              color: Colors.black,
-            ),
-            label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: Colors.black,
-            ),
-            label: 'Account',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: BottomNavBar(),
+// bottomNavigationBar: BottomNavBar(),
     );
   }
 
@@ -84,7 +46,9 @@ class _pesananState extends State<pesanan> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        
       ],
+      
     );
   }
 }
