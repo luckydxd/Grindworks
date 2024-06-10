@@ -1,19 +1,7 @@
 import 'package:flutter/material.dart';
+// import 'package:grindworks/widget/bottomnavbar.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
+class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,27 +32,29 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.library_books),
-            label: 'Library',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Account',
-          ),
-        ],
-        selectedItemColor: Colors.amber[800],
-      ),
+      // Remove/Comment out the bottomNavigationBar to exclude it from your page
+      //bottomNavigationBar: BottomNavigationBar(
+      //  items: const <BottomNavigationBarItem>[
+      //    BottomNavigationBarItem(
+      //      icon: Icon(Icons.home),
+      //      label: 'Home',
+      //    ),
+      //    BottomNavigationBarItem(
+      //      icon: Icon(Icons.search),
+      //      label: 'Search',
+      //    ),
+      //    BottomNavigationBarItem(
+      //      icon: Icon(Icons.library_books),
+      //      label: 'Library',
+      //    ),
+      //    BottomNavigationBarItem(
+      //      icon: Icon(Icons.account_circle),
+      //      label: 'Account',
+      //    ),
+      //  ],
+      //  selectedItemColor: Colors.amber[800],
+      //),
+      // bottomNavigationBar: BottomNavBar(),
     );
   }
 }

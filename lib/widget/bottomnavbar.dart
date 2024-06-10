@@ -1,54 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:grindworks/pages/homepage.dart';
-// import 'package:grindworks/pages/homepage.dart';
 import 'package:grindworks/pages/pesanan.dart';
 import 'package:grindworks/pages/inbox.dart';
-// import 'package:grindworks/pages/detail_book.dart';
-// import 'package:grindworks/pages/detail_book.dart';
-// import 'package:grindworks/pages/detail_book.dart';
+import 'package:grindworks/pages/pencarian.dart';
+import 'package:grindworks/pages/profil.dart';
 
-// void main() {
-//   runApp(const Bottomnavbar());
-// }
-
-// class Bottomnavbar extends StatelessWidget {
-//   const Bottomnavbar({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp(
-//       home: WelcomePage(),
-//     );
-//   }
-// }
 class BottomNavBar extends StatefulWidget {
   BottomNavBar({Key? key}) : super(key: key);
 
   _BottomNavBarState createState() => _BottomNavBarState();
 }
+
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
 
-  // Add your screens here
   final List<Widget> _screens = [
-
-    //     Center(child: Text('Chat', style: TextStyle(fontSize: 32))),
-    // Center(child: Text('Search', style: TextStyle(fontSize: 32))),
-    // Center(child: Text('Order', style: TextStyle(fontSize: 32))),
-    // Center(child: Text('Profile', style: TextStyle(fontSize: 32))),
-     ArticlePage(),
-    //  ChatPage(),
-    //  SearchPage(),
-     pesanan(),
-    //  ProfilePage(),
+    ArticlePage(),
+    InboxScreen(),
+    SearchPage(),
+    pesanan(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index; 
+      _selectedIndex = index;
     });
   }
 
-Widget _buildIcon(IconData icon, int index) {
+  Widget _buildIcon(IconData icon, int index) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -58,17 +38,18 @@ Widget _buildIcon(IconData icon, int index) {
             height: 2,
             width: 24,
             color: Colors.blue,
-
           ),
       ],
     );
   }
-  
- @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex],
-
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _screens,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         items: <BottomNavigationBarItem>[

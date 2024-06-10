@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'package:grindworks/widget/bottomnavbar.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light(),
-      home: InboxScreen(),
-    );
-  }
-}
 
 class InboxScreen extends StatelessWidget {
   @override
@@ -57,31 +45,11 @@ class InboxScreen extends StatelessWidget {
               ),
             ],
           ),
+          
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.black,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '',
-          ),
-        ],
-      ),
+        // bottomNavigationBar: BottomNavBar(),
+      
     );
   }
 }

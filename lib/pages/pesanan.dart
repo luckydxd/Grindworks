@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:grindworks/bottomnavbar.dart';
+// import 'package:grindworks/widget/bottomnavbar.dart';
 
 void main() => runApp(pesanan());
-
 
 class pesanan extends StatefulWidget {
   const pesanan({super.key});
@@ -30,7 +29,7 @@ class _pesananState extends State<pesanan> {
       body: Center(
         child: _buildBody(),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      // bottomNavigationBar: BottomNavBar(),
 // bottomNavigationBar: BottomNavBar(),
     );
   }
@@ -46,9 +45,7 @@ class _pesananState extends State<pesanan> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        
       ],
-      
     );
   }
 }

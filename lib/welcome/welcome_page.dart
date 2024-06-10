@@ -17,7 +17,7 @@ class _WelcomePageState extends State<WelcomePage> {
   var _totalDots = 1;
   int _currentPosition = 0;
 
-    @override
+  @override
   void initState() {
     _initData();
 
@@ -44,26 +44,24 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   }
 
-    String getCurrentPositionPretty() {
+  String getCurrentPositionPretty() {
     return (_currentPosition + 1.0).toStringAsPrecision(2);
   }
 
-_initData() async {
-     CallApi().getPublicData("welcomeinfo").then((response){
-       setState(() {
+  _initData() async {
+    CallApi().getPublicData("welcomeinfo").then((response) {
+      setState(() {
         Iterable list = json.decode(response.body);
-        articles= list.map((model)=>ArticleInfo.fromJson(model)).toList();
-        _totalDots=articles.length;
-       });
-     });
-  
-
+        articles = list.map((model) => ArticleInfo.fromJson(model)).toList();
+        _totalDots = articles.length;
+      });
+    });
   }
 
-  _onPageChanged(int index){
+  _onPageChanged(int index) {
     setState(() {
       _currentPosition = _currentPosition.ceil();
-     // _updatePosition(max(--_currentPosition, 0));
+      // _updatePosition(max(--_currentPosition, 0));
       _updatePosition(index);
       print(index);
       print(_currentPosition);
@@ -73,15 +71,14 @@ _initData() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF333d94),
+      backgroundColor: const Color(0xFF41689E),
       body: Column(
         children: [
           Container(
-
             height: MediaQuery.of(context).size.height / 2,
             decoration: const BoxDecoration(
                 image: DecorationImage(
-              image: AssetImage("assets/background.png"),
+              image: AssetImage("assets/background1.png"),
               fit: BoxFit.fill,
             )),
           ),
@@ -93,39 +90,40 @@ _initData() async {
               decorator: DotsDecorator(
                 size: const Size.square(9.0),
                 activeSize: const Size(18.0, 9.0),
-                activeShape:
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
               ),
               onTap: (pos) {
                 setState(() => _currentPosition = pos);
               },
             )
           ]),
-Container(
-        height: 180,
-        color:const Color(0xFF333d94),
-        child: PageView.builder(
-          onPageChanged: _onPageChanged,
-        controller: PageController(viewportFraction: 1.0),
-    // ignore: unnecessary_null_comparison
-    itemCount: articles==null?0:articles.length,
-    itemBuilder: (_, i){
-
- return Container(
-      height: 180,
-      padding: const EdgeInsets.only(top:50, left: 50, right: 50),
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(right: 10),
-      child: Text(
-        articles[i].article_content ?? "Nothing",
-        style: const TextStyle(color:Colors.white,fontSize: 20, fontFamily: "Avenir",fontWeight: FontWeight.bold),
-
-      ),
-    );
-    }),
-
-    ),
-
+          Container(
+            height: 180,
+            color: const Color(0xFF41689E),
+            child: PageView.builder(
+                onPageChanged: _onPageChanged,
+                controller: PageController(viewportFraction: 1.0),
+                // ignore: unnecessary_null_comparison
+                itemCount: articles == null ? 0 : articles.length,
+                itemBuilder: (_, i) {
+                  return Container(
+                    height: 180,
+                    padding:
+                        const EdgeInsets.only(top: 50, left: 50, right: 50),
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(right: 10),
+                    child: Text(
+                      articles[i].article_content ?? "Nothing",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: "Avenir",
+                          fontWeight: FontWeight.bold),
+                    ),
+                  );
+                }),
+          ),
           Expanded(
               child: Stack(
             children: [
@@ -136,31 +134,31 @@ Container(
                   right: (MediaQuery.of(context).size.width - 200) / 2,
                   child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context)=>const AuthPage())// Navigator to AuthPage
-                        );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const AuthPage()) // Navigator to AuthPage
+                            );
                       },
-
                       child: Container(
                           height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: const Color(0xFF7179ed),
+                            color: const Color(0xFF2F4858),
                           ),
                           child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 'Mulai',
-                                style: TextStyle(color: Colors.white, fontSize: 26),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 26),
                               ),
                             ],
-                        )
-                    ))
-                )
+                          ))))
             ],
-          )
-          )
+          ))
         ],
       ),
     );
