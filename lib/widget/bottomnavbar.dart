@@ -18,7 +18,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     ArticlePage(),
     InboxScreen(),
     SearchPage(),
-    pesanan(),
+    PesananPage(),
     ProfileScreen(),
   ];
 

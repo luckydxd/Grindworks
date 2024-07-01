@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:grindworks/api/my_api.dart';
 import 'package:grindworks/components/text_widget.dart';
 import 'package:grindworks/models/get_article_info.dart';
-import 'package:grindworks/pages/detail_book.dart';
+import 'package:grindworks/models/get_layanan_info.dart';
+import 'package:grindworks/models/get_kategori_info.dart';
+import 'package:grindworks/pages/all_books.dart';
+import 'package:grindworks/pages/detail_layanan_page.dart';
+import 'package:grindworks/pages/pencarian.dart';
+import 'package:grindworks/utils/currency_format.dart';
+
+// import 'package:grindworks/pages/detail_layanan.dart';
 // import 'package:grindworks/widget/bottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,10 +25,13 @@ class ArticlePage extends StatefulWidget {
 class _ArticlePageState extends State<ArticlePage> {
   var articles = <ArticleInfo>[];
   var allarticles = <ArticleInfo>[];
+  var layanan = <LayananInfo>[];
+  var kategori = <KategoriInfo>[];
 
   @override
   void initState() {
     _getArticles();
+
     super.initState();
   }
 
@@ -44,6 +54,53 @@ class _ArticlePageState extends State<ArticlePage> {
         allarticles = list.map((model) => ArticleInfo.fromJson(model)).toList();
       });
     });
+    await CallApi().getPublicData("getkategori").then((response) {
+      print('Response data: ${response.body}'); // perbaikan di baris ini
+      if (response.body is String) {
+        setState(() {
+          Iterable list = json.decode(response.body); // dan disini
+          kategori = list.map((model) => KategoriInfo.fromJson(model)).toList();
+        });
+      } else {
+        print('Error getting Kategori: ${response.body}'); // dan disini
+      }
+    }).catchError((error) {
+      print('Error occured: $error');
+    });
+
+    await CallApi().getPublicData("kategori").then((response) {
+      print('Response data: ${response.body}'); // perbaikan di baris ini
+      if (response.body is String) {
+        setState(() {
+          Iterable list = json.decode(response.body); // dan disini
+          kategori = list.map((model) => KategoriInfo.fromJson(model)).toList();
+        });
+      } else {
+        print('Error getting Kategori: ${response.body}'); // dan disini
+      }
+    }).catchError((error) {
+      print('Error occured: $error');
+    });
+
+    await CallApi().getPublicData("getlayanan").then((response) {
+      print('Response data: ${response.body}'); // perbaikan di baris ini
+      if (response.body is String) {
+        setState(() {
+          Iterable list = json.decode(response.body); // dan disini
+          layanan = list.map((model) => LayananInfo.fromJson(model)).toList();
+        });
+      } else {
+        print('Error getting Layanan: ${response.body}'); // dan disini
+      }
+    }).catchError((error) {
+      print('Error occured: $error');
+    });
+    // await CallApi().getPublicData("layanan").then((response) {
+    //   setState(() {
+    //     Iterable list = json.decode(response);
+    //     layanan = list.map((model) => LayananInfo.fromJson(model)).toList();
+    //   });
+    // });
   }
 
   @override
@@ -54,7 +111,7 @@ class _ArticlePageState extends State<ArticlePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 30,
+        toolbarHeight: 20,
         backgroundColor: const Color(0xFFffffff),
         elevation: 0.0,
       ),
@@ -86,7 +143,13 @@ class _ArticlePageState extends State<ArticlePage> {
                     IconButton(
                       icon: Icon(Icons.arrow_forward_ios,
                           color: Color(0xFFF76C5E), size: 16),
-                      onPressed: () {},
+                      onPressed: () {
+                        // Navigasi ke halaman pencarian
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SearchPage()),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -98,29 +161,28 @@ class _ArticlePageState extends State<ArticlePage> {
             height: height * 0.27,
             child: PageView.builder(
               controller: PageController(viewportFraction: 0.9),
-              itemCount: articles.length,
+              itemCount: kategori.length,
               itemBuilder: (_, i) {
                 return GestureDetector(
                   onTap: () {
                     debugPrint(i.toString());
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailBookPage(index: 1)),
+                      MaterialPageRoute(builder: (context) => AllLayanan()),
                     );
                   },
-                  child: articles.isEmpty
+                  child: kategori.isEmpty
                       ? CircularProgressIndicator()
                       : Stack(
                           children: [
                             Positioned(
-                              top: 35,
+                              // top: 2,
                               child: Container(
-                                height: 180,
+                                height: 175,
                                 width: width * 0.85,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(0.0),
+                                  borderRadius: BorderRadius.circular(5.0),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey.withOpacity(0.3),
@@ -133,8 +195,8 @@ class _ArticlePageState extends State<ArticlePage> {
                               ),
                             ),
                             Positioned(
-                              top: 40,
-                              left: 2,
+                              // top: 15,
+                              // left: 2,
                               child: Card(
                                 elevation: 10,
                                 shadowColor: Colors.grey.withOpacity(0.5),
@@ -142,15 +204,15 @@ class _ArticlePageState extends State<ArticlePage> {
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 child: Container(
-                                  height: 150,
-                                  width: 150,
+                                  height: 170,
+                                  width: 170,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                       fit: BoxFit.fill,
                                       image: NetworkImage(
-                                        "http://192.168.109.73:8000/uploads/" +
-                                            (articles[i].img ?? ''),
+                                        "http://192.168.112.73:8000/uploads/" +
+                                            (kategori[i].img ?? ''),
                                       ),
                                     ),
                                   ),
@@ -158,8 +220,8 @@ class _ArticlePageState extends State<ArticlePage> {
                               ),
                             ),
                             Positioned(
-                              top: 45,
-                              left: width * 0.4,
+                              top: 10,
+                              left: width * 0.46,
                               child: Container(
                                 height: 200,
                                 width: 150,
@@ -167,22 +229,22 @@ class _ArticlePageState extends State<ArticlePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     TextWidget(
-                                      text: articles[i].title ?? '',
+                                      text: kategori[i].nama ?? '',
                                       fontSize: 20,
                                     ),
-                                    TextWidget(
-                                      color: Colors.grey,
-                                      text: articles[i].author == null
-                                          ? "Lucky"
-                                          : articles[i].author ?? '',
-                                      fontSize: 16,
-                                    ),
-                                    Divider(color: Colors.black),
-                                    TextWidget(
-                                      text: articles[i].description ?? '',
-                                      fontSize: 16,
-                                      color: Colors.grey,
-                                    ),
+                                    // TextWidget(
+                                    //   color: Colors.grey,
+                                    //   text: kategori[i].deskripsi == null
+                                    //       ? "Lucky"
+                                    //       : kategori[i].deskripsi ?? '',
+                                    //   fontSize: 16,
+                                    // ),
+                                    // Divider(color: Colors.black),
+                                    // TextWidget(
+                                    //   text: kategori[i].deskripsi ?? '',
+                                    //   fontSize: 16,
+                                    //   color: Colors.grey,
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -199,44 +261,52 @@ class _ArticlePageState extends State<ArticlePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextWidget(text: "Rekomendasi", fontSize: 20),
-                Row(
-                  children: [
-                    TextWidget(
-                      text: "Lihat Semua",
-                      fontSize: 14,
-                      color: Color(0xFFF76C5E),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFFF76C5E),
-                        size: 16,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     TextWidget(
+                //       text: "Lihat Semua",
+                //       fontSize: 14,
+                //       color: Color(0xFFF76C5E),
+                //     ),
+                //     IconButton(
+                //       icon: Icon(
+                //         Icons.arrow_forward_ios,
+                //         color: Color(0xFFF76C5E),
+                //         size: 16,
+                //       ),
+                //       onPressed: () {},
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                height: height * 0.4,
+                height: height * 0.35,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: allarticles.length,
+                  itemCount: layanan.length,
                   itemBuilder: (_, i) {
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetailBookPage(index: 1),
+                            builder: (context) {
+                              debugPrint(
+                                  'Navigating to DetailLayanan with Layanan Info: ${layanan[i]}');
+                              return DetailLayananPage(
+                                layananInfo: layanan[
+                                    i], // Kirim satu objek LayananInfo dari daftar
+                                index: i,
+                              );
+                            },
                           ),
                         );
                       },
-                      child: allarticles.isEmpty
+                      child: layanan.isEmpty
                           ? CircularProgressIndicator()
                           : Container(
                               height: height * 0.4,
@@ -248,26 +318,66 @@ class _ArticlePageState extends State<ArticlePage> {
                                   Card(
                                     semanticContainer: true,
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: Image.network(
-                                      "http://192.168.109.73:8000/uploads/" +
-                                          allarticles[i].img.toString(),
-                                      fit: BoxFit.contain,
+                                    child: ClipRect(
+                                      child: AspectRatio(
+                                        aspectRatio:
+                                            1, // Rasio aspek 1:1 untuk gambar persegi
+                                        child: Image.network(
+                                          "http://192.168.112.73:8000/uploads/" +
+                                              layanan[i].img.toString(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     elevation: 5,
                                   ),
-                                  TextWidget(
-                                    text: allarticles[i].title ?? '',
-                                    fontSize: 20,
+                                  SizedBox(
+                                      height:
+                                          10), // Spasi antara gambar dan deskripsi
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: TextWidget(
+                                        text:
+                                            (layanan[i].judul?.length ?? 0) > 50
+                                                ? (layanan[i]
+                                                        .judul!
+                                                        .substring(0, 50) +
+                                                    '...')
+                                                : (layanan[i].judul ?? ''),
+                                        fontSize: 14,
+                                      ),
+                                    ),
                                   ),
-                                  TextWidget(
-                                    text: allarticles[i].author == null
-                                        ? "Lucky D."
-                                        : "" + (allarticles[i].author ?? ''),
-                                    fontSize: 16,
-                                    color: Color(0xFFa9b3bd),
+                                  SizedBox(
+                                      height:
+                                          2), // Spasi antara deskripsi dan info lainnya
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.star,
+                                              color: Colors.blue, size: 16),
+                                          SizedBox(width: 2),
+                                          Text('4.9',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.blue)),
+                                        ],
+                                      ),
+                                      Text(
+                                        "Rp.${formatCurrency(layanan[i].hargaLayanan)}",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

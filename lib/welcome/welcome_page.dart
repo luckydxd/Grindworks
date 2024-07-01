@@ -6,7 +6,9 @@ import 'package:grindworks/auth/auth_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+  final VoidCallback onWelcomeComplete;
+
+  const WelcomePage({Key? key, required this.onWelcomeComplete}) : super(key: key);
 
   @override
   _WelcomePageState createState() => _WelcomePageState();
@@ -20,7 +22,6 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
     _initData();
-
     super.initState();
   }
 
@@ -61,7 +62,6 @@ class _WelcomePageState extends State<WelcomePage> {
   _onPageChanged(int index) {
     setState(() {
       _currentPosition = _currentPosition.ceil();
-      // _updatePosition(max(--_currentPosition, 0));
       _updatePosition(index);
       print(index);
       print(_currentPosition);
@@ -104,8 +104,7 @@ class _WelcomePageState extends State<WelcomePage> {
             child: PageView.builder(
                 onPageChanged: _onPageChanged,
                 controller: PageController(viewportFraction: 1.0),
-                // ignore: unnecessary_null_comparison
-                itemCount: articles == null ? 0 : articles.length,
+                itemCount: articles.length,
                 itemBuilder: (_, i) {
                   return Container(
                     height: 180,
@@ -134,12 +133,12 @@ class _WelcomePageState extends State<WelcomePage> {
                   right: (MediaQuery.of(context).size.width - 200) / 2,
                   child: GestureDetector(
                       onTap: () {
+                        widget.onWelcomeComplete();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const AuthPage()) // Navigator to AuthPage
-                            );
+                                    const AuthPage())); // Navigator to AuthPage
                       },
                       child: Container(
                           height: 80,
